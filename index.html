@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for clean minimalist typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Game Component Styles */
+        .char-untyped { color: #666; }
+        .char-correct { color: #4CAF50; }
+        .char-incorrect { color: #ff5252; background: rgba(255, 82, 82, 0.15); }
+        
+        .game-tab-btn {
+            padding: 6px 12px;
+            background: #1a1a1a;
+            color: #aaa;
+            border: 1px solid #333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .game-tab-btn.active-game-tab {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .diff-btn {
+            padding: 3px 8px;
+            background: #1a1a1a;
+            color: #aaa;
+            border: 1px solid #333;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+            transition: all 0.2s ease;
+        }
+        .diff-btn.active-diff {
+            background: #4CAF50;
+            color: #fff;
+            border-color: #4CAF50;
+        }
+
+        .ttt-cell {
+            aspect-ratio: 1;
+            background: #121212;
+            border: 1px solid #333;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .ttt-cell:hover { background: #222; }
+
+        /* Monochrome Resume Styles with Colored Photo */
+        .resume-sheet {
+            background: #141414;
+            color: #e0e0e0;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 24px;
+            font-family: 'Inter', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #333;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+        .resume-info h2 {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .resume-info p {
+            font-size: 11px;
+            color: #aaa;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .resume-photo {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #444;
+            /* Grayscale filter removed so photo stays in full color */
+        }
+        .resume-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            border-left: 2px solid #fff;
+            padding-left: 8px;
+            margin: 16px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .resume-text {
+            font-size: 11px;
+            color: #bbb;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .resume-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .resume-list li {
+            font-size: 11px;
+            color: #bbb;
+            margin-bottom: 8px;
+        }
+        .resume-list strong {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Portrait -->
+    <div class="bg-container">
+        <img src="C:\Users\Client\Downloads\CUsersClientDownloadsA0A643F5-11DB-47EA-8D5B-611CB8D87345.png.png" alt="Portrait" class="bg-image">
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Top Navigation Links -->
+    <header class="top-nav">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=cruzkyle.0523@gmail.com" target="_blank" class="nav-link">Gmail</a>
+        <a href="https://www.instagram.com/kylezruc/" target="_blank" class="nav-link">Instagram</a>
+    </header>
+
+    <!-- Main Content Display Area -->
+    <main class="content-display">
+        <section id="about" class="content-panel active">
+            <div class="panel-inner">
+                <h1>About</h1>
+                <p>I am a cheerful, unique, and talented creator. Passionate about bringing vibrant energy, original perspective, and soulful craft to minimalist digital experiences.</p>
+            </div>
+        </section>
+
+        <section id="skills" class="content-panel">
+            <div class="panel-inner">
+                <h1>Skills</h1>
+                <ul class="clean-list">
+                    <li>Creative Designer & Photography</li>
+                    <li>UI/UX Design & Frontend Development</li>
+                    <li>Video Editing & Photo Editing</li>
+                    <li>Brand Strategy & AI based coding</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="work" class="content-panel">
+            <div class="panel-inner">
+                <h1>Work</h1>
+                <ul class="clean-list">
+                    <li><strong>Armed with practical experience from my OJT, I am eager to take on this role bringing a unique perspective and a strong commitment to continuous learning and growth.</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="education" class="content-panel">
+            <div class="panel-inner">
+                <h1>Education</h1>
+                <div class="education-scroll">
+                    <ul class="clean-list">
+                        <li><strong>Bachelor of Science in Information Technology (BSIT)</strong><br>St. Joseph's College of Rodriguez (2023-Present)</li>
+                        <li><strong>Senior High School (Grades 11-12)</strong><br>Our Lady of Fatima University - Quezon City (2020-2022)</li>
+                        <li><strong>High School (Years 9-10)</strong><br>Jolly Children Academic Center, Inc. (2018-2020)</li>
+                        <li><strong>High School (Years 7-8)</strong><br>FEU Roosevelt Inc. (2016-2018)</li>
+                        <li><strong>Elementary (Grades 1-6)</strong><br>JCSGO Christian Academy (2010-2016)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Arcade Panel with 3 Games -->
+        <section id="game" class="content-panel">
+            <div class="panel-inner" style="max-height: 80vh; overflow-y: auto;">
+                <h1>Game Arcade</h1>
+                
+                <!-- Game Switcher Menu -->
+                <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
+                    <button id="btn-tab-typing" class="game-tab-btn active-game-tab" onclick="switchArcadeGame('typing')">Bible Verse Typing</button>
+                    <button id="btn-tab-snake" class="game-tab-btn" onclick="switchArcadeGame('snake')">Snake & Apple</button>
+                    <button id="btn-tab-ttt" class="game-tab-btn" onclick="switchArcadeGame('ttt')">Tic-Tac-Toe</button>
+                </div>
+
+                <!-- GAME 1: BIBLE VERSE TYPING -->
+                <div id="arcade-typing" style="background: rgba(25, 25, 25, 0.7); border: 1px solid #333; border-radius: 8px; padding: 14px; max-width: 440px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-bottom: 8px;">
+                        <span>Time: <strong id="typing-timer" style="color: #fff;">35</strong>s</span>
+                        <span>WPM: <strong id="typing-wpm" style="color: #fff;">0</strong></span>
+                        <span>Accuracy: <strong id="typing-acc" style="color: #fff;">100</strong>%</span>
+                    </div>
+                    
+                    <div id="verse-citation" style="font-size: 11px; color: #4CAF50; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.5px;">Press Start to begin typing...</div>
+                    <div id="target-snippet" style="font-family: monospace; font-size: 12px; background: #121212; padding: 10px; border-radius: 6px; border: 1px solid #282828; color: #ccc; margin-bottom: 10px; min-height: 48px; word-break: break-all; line-height: 1.4;"></div>
+                    
+                    <input type="text" id="typing-input" placeholder="Click 'Start Game' and type verse..." disabled style="width: 100%; padding: 8px; background: #121212; border: 1px solid #444; color: #fff; border-radius: 6px; font-family: monospace; font-size: 12px; outline: none; margin-bottom: 10px;" autocomplete="off" spellcheck="false">
+                    
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <button id="typing-btn" onclick="startTypingGame()" style="padding: 5px 14px; background: #fff; color: #000; border: none; border-radius: 4px; font-weight: 500; cursor: pointer; font-size: 11px;">Start Game</button>
+                        <span id="typing-message" style="font-size: 11px; color: #4CAF50; font-weight: 500;"></span>
+                    </div>
+                </div>
+
+                <!-- GAME 2: SNAKE & APPLE -->
+                <div id="arcade-snake" style="display: none; background: rgba(25, 25, 25, 0.7); border: 1px solid #333; border-radius: 8px; padding: 14px; max-width: 420px; text-align: center;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-bottom: 8px;">
+                        <span>Score: <strong id="snake-score" style="color: #fff;">0</strong></span>
+                        <button onclick="resetSnakeGame()" style="padding: 2px 10px; background: #333; color: #fff; border: 1px solid #555; border-radius: 4px; cursor: pointer; font-size: 11px;">Restart</button>
+                    </div>
+
+                    <div style="position: relative; width: 280px; height: 280px; margin: 0 auto;">
+                        <canvas id="snakeCanvas" width="280" height="280" style="background: #111; border: 1px solid #333; border-radius: 6px; display: block;"></canvas>
+                        
+                        <div id="snake-intro" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 15, 15, 0.92); border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box; text-align: center;">
+                            <h3 style="color: #fff; font-size: 15px; margin-bottom: 8px;">Snake & Apple</h3>
+                            <p style="font-size: 11px; color: #bbb; line-height: 1.4; margin-bottom: 14px;">
+                                Guide the snake to eat the bright green apples and grow longer!<br><br>
+                                <strong>Controls:</strong><br>
+                                Use <strong>W, A, S, D</strong> or <strong>Arrow Keys</strong> to move.
+                            </p>
+                            <button onclick="launchSnakeGame()" style="padding: 6px 16px; background: #fff; color: #000; border: none; border-radius: 4px; font-weight: 500; cursor: pointer; font-size: 12px;">Start Game</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GAME 3: TIC-TAC-TOE WITH DIFFICULTY SELECTOR -->
+                <div id="arcade-ttt" style="display: none; background: rgba(25, 25, 25, 0.7); border: 1px solid #333; border-radius: 8px; padding: 14px; max-width: 320px;">
+                    <div style="display: flex; gap: 4px; margin-bottom: 10px; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 11px; color: #888;">Difficulty:</span>
+                        <div style="display: flex; gap: 4px;">
+                            <button id="diff-easy" class="diff-btn" onclick="setDifficulty('easy')">Easy</button>
+                            <button id="diff-medium" class="diff-btn" onclick="setDifficulty('medium')">Medium</button>
+                            <button id="diff-hard" class="diff-btn active-diff" onclick="setDifficulty('hard')">Hard</button>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 12px;">
+                        <span id="ttt-status" style="color: #aaa;">Your turn (X)</span>
+                        <button onclick="initTTTGame()" style="padding: 2px 10px; background: #333; color: #fff; border: 1px solid #555; border-radius: 4px; cursor: pointer; font-size: 11px;">Reset</button>
+                    </div>
+                    <div id="ttt-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="projects" class="content-panel">
+            <div class="panel-inner">
+                <h1>Projects</h1>
+                <ul class="clean-list">
+                    <li>E-commerce</li>
+                    <li>SRTR SELECT RIGHT, THROW RIGHT</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Embedded Resume Section with Colored Picture -->
+        <section id="resume" class="content-panel">
+            <div class="panel-inner" style="max-height: 80vh; overflow-y: auto;">
+                <div class="resume-sheet">
+                    <div class="resume-header">
+                        <div class="resume-info">
+                            <h2>Cruz, Kyle D.</h2>
+                            <p>Blk 5 Lot 7 Phase 1E Kasiglahan Vill. San Jose Rod. Rizal<br>
+                            0956-7107-397<br>
+                            cruzkyle.0523@gmail.com</p>
+                        </div>
+                        <img src="C:\Users\Client\Downloads\IT Professional Resume.png" alt="Kyle Cruz Portrait" class="resume-photo">
+                    </div>
+
+                    <div class="resume-section-title">Career Objective</div>
+                    <p class="resume-text">A motivated and hardworking Information Technology student seeking an opportunity to gain practical experience and further develop my technical and professional skills. I am eager to learn from experienced professionals, open to guidance and feedback, and willing to apply what I learn to future tasks. I aim to improve my skills in programming, system development, troubleshooting, cybersecurity awareness, and digital design while contributing positively to the organization.</p>
+
+                    <div class="resume-section-title">Education Background</div>
+                    <ul class="resume-list">
+                        <li><strong>St. Joseph's College of Rodriguez</strong><br>Bachelor of Science in Information Technology (BSIT) — 2023–Present</li>
+                        <li><strong>Our Lady of Fatima University – Quezon City (OLFU QC)</strong><br>Senior High School (Grades 11–12) — 2020–2022</li>
+                        <li><strong>Jolly Children Academic Center, Inc.</strong><br>High School (Years 9–10) — 2018–2020</li>
+                        <li><strong>FEU Roosevelt Inc.</strong><br>High School (Years 7–8) — 2016–2018</li>
+                        <li><strong>JCSGO Christian Academy</strong><br>Elementary (Grades 1–6) — 2010–2016</li>
+                    </ul>
+
+                    <div class="resume-section-title">Technical Skills</div>
+                    <p class="resume-text"><strong>Programming:</strong> PHP, VB.NET, Arduino/C++ | <strong>Database Management</strong> | <strong>Hardware & Embedded Systems</strong> | <strong>Software & Development Tools</strong> | <strong>API & Integration</strong> | <strong>Troubleshooting</strong></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Right-aligned Vertical Menu -->
+    <nav class="side-menu">
+        <button class="menu-item active" data-target="about">About</button>
+        <button class="menu-item" data-target="skills">Skills</button>
+        <button class="menu-item" data-target="work">Work</button>
+        <button class="menu-item" data-target="education">Education</button>
+        <button class="menu-item" data-target="game">Game</button>
+        <button class="menu-item" data-target="projects">Projects</button>
+        <button class="menu-item" data-target="resume">Resume</button>
+    </nav>
+
+    <!-- Aesthetic Mode Toggle Button -->
+    <div class="theme-toggle">
+        <button id="modeToggle" class="toggle-btn">Brighter Mode</button>
+    </div>
+
+    <!-- JavaScript Link & Complete Arcade Game Logic -->
+    <script src="script.js"></script>
+    <script>
+        // --- ARCADE TAB SWITCHER ---
+        function switchArcadeGame(gameName) {
+            document.getElementById('arcade-typing').style.display = gameName === 'typing' ? 'block' : 'none';
+            document.getElementById('arcade-snake').style.display = gameName === 'snake' ? 'block' : 'none';
+            document.getElementById('arcade-ttt').style.display = gameName === 'ttt' ? 'block' : 'none';
+
+            document.getElementById('btn-tab-typing').className = gameName === 'typing' ? 'game-tab-btn active-game-tab' : 'game-tab-btn';
+            document.getElementById('btn-tab-snake').className = gameName === 'snake' ? 'game-tab-btn active-game-tab' : 'game-tab-btn';
+            document.getElementById('btn-tab-ttt').className = gameName === 'ttt' ? 'game-tab-btn active-game-tab' : 'game-tab-btn';
+
+            if (gameName === 'ttt') initTTTGame();
+        }
+
+        // --- 1. 50 RUMBLED BIBLE VERSES TYPING GAME ---
+        const bibleVerses = [
+            { text: "In the beginning God created the heavens and the earth.", ref: "Genesis 1:1" },
+            { text: "For God so loved the world that he gave his one and only Son.", ref: "John 3:16" },
+            { text: "I can do all things through Christ who strengthens me.", ref: "Philippians 4:13" },
+            { text: "The Lord is my shepherd; I shall not want.", ref: "Psalm 23:1" },
+            { text: "Trust in the Lord with all your heart and lean not on your own understanding.", ref: "Proverbs 3:5" },
+            { text: "And we know that in all things God works for the good of those who love him.", ref: "Romans 8:28" },
+            { text: "Your word is a lamp to my feet and a light to my path.", ref: "Psalm 119:105" },
+            { text: "Do not be anxious about anything, but in every situation pray.", ref: "Philippians 4:6" },
+            { text: "Faith is confidence in what we hope for and assurance about what we do not see.", ref: "Hebrews 11:1" },
+            { text: "Be strong and courageous. Do not be afraid; do not be discouraged.", ref: "Joshua 1:9" },
+            { text: "Love is patient, love is kind. It does not envy, it does not boast.", ref: "1 Corinthians 13:4" },
+            { text: "The name of the Lord is a fortified tower; the righteous run to it and are safe.", ref: "Proverbs 18:10" },
+            { text: "So do not fear, for I am with you; do not be dismayed, for I am your God.", ref: "Isaiah 41:10" },
+            { text: "Create in me a pure heart, O God, and renew a steadfast spirit within me.", ref: "Psalm 51:10" },
+            { text: "Commit to the Lord whatever you do, and he will establish your plans.", ref: "Proverbs 16:3" },
+            { text: "The grass withers, the flower fades, but the word of our God will stand forever.", ref: "Isaiah 40:8" },
+            { text: "Cast all your anxiety on him because he cares for you.", ref: "1 Peter 5:7" },
+            { text: "Taste and see that the Lord is good; blessed is the one who takes refuge in him.", ref: "Psalm 34:8" },
+            { text: "Blessed are the peacemakers, for they will be called children of God.", ref: "Matthew 5:9" },
+            { text: "Let everything that has breath praise the Lord.", ref: "Psalm 150:6" },
+            { text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.", ref: "Psalm 34:18" },
+            { text: "Delight yourself in the Lord, and he will give you the desires of your heart.", ref: "Psalm 37:4" },
+            { text: "Humble yourselves before the Lord, and he will lift you up.", ref: "James 4:10" },
+            { text: "Let your light shine before others, that they may see your good deeds.", ref: "Matthew 5:16" },
+            { text: "He heals the brokenhearted and binds up their wounds.", ref: "Psalm 147:3" },
+            { text: "Peace I leave with you; my peace I give you.", ref: "John 14:27" },
+            { text: "Rejoice always, pray continually, give thanks in all circumstances.", ref: "1 Thessalonians 5:16-18" },
+            { text: "The Lord is my light and my salvation—whom shall I fear?", ref: "Psalm 27:1" },
+            { text: "Praise the Lord, my soul, and forget not all his benefits.", ref: "Psalm 103:2" },
+            { text: "Draw near to God, and he will draw near to you.", ref: "James 4:8" },
+            { text: "The steadfast love of the Lord never ceases; his mercies never come to an end.", ref: "Lamentations 3:22" },
+            { text: "Guard your heart above all else, for it determines the course of your life.", ref: "Proverbs 4:23" },
+            { text: "Jesus Christ is the same yesterday and today and forever.", ref: "Hebrews 13:8" },
+            { text: "Ask and it will be given to you; seek and you will find.", ref: "Matthew 7:7" },
+            { text: "Come to me, all you who are weary and burdened, and I will give you rest.", ref: "Matthew 11:28" },
+            { text: "The Lord is good, a refuge in times of trouble. He cares for those who trust in him.", ref: "Nahum 1:7" },
+            { text: "Walk by faith, not by sight.", ref: "2 Corinthians 5:7" },
+            { text: "A friend loves at all times, and a brother is born for a time of adversity.", ref: "Proverbs 17:17" },
+            { text: "Let love and faithfulness never leave you; bind them around your neck.", ref: "Proverbs 3:3" },
+            { text: "Be joyful in hope, patient in affliction, faithful in prayer.", ref: "Romans 12:12" },
+            { text: "The Lord gives strength to his people; the Lord blesses his people with peace.", ref: "Psalm 29:11" },
+            { text: "If any of you lacks wisdom, you should ask God, who gives generously to all.", ref: "James 1:5" },
+            { text: "Give thanks to the Lord, for he is good; his love endures forever.", ref: "Psalm 136:1" },
+            { text: "Whoever dwells in the shelter of the Most High will rest in the shadow of the Almighty.", ref: "Psalm 91:1" },
+            { text: "Not to us, Lord, not to us, but to your name be the glory.", ref: "Psalm 115:1" },
+            { text: "The Lord will fight for you; you need only to be still.", ref: "Exodus 14:14" },
+            { text: "Better is one day in your courts than a thousand elsewhere.", ref: "Psalm 84:10" },
+            { text: "Gracious words are a honeycomb, sweet to the soul and healing to the bones.", ref: "Proverbs 16:24" },
+            { text: "I have fought the good fight, I have finished the race, I have kept the faith.", ref: "2 Timothy 4:7" },
+            { text: "The Lord is righteous in all his ways and faithful in all he does.", ref: "Psalm 145:17" }
+        ];
+
+        let typingTimer = null;
+        let timeLeft = 35;
+        let charIndex = 0;
+        let errors = 0;
+        let isPlaying = false;
+        let currentVerse = {};
+
+        const timerDisplay = document.getElementById('typing-timer');
+        const wpmDisplay = document.getElementById('typing-wpm');
+        const accDisplay = document.getElementById('typing-acc');
+        const targetSnippetBox = document.getElementById('target-snippet');
+        const verseCitation = document.getElementById('verse-citation');
+        const typingInput = document.getElementById('typing-input');
+        const typingBtn = document.getElementById('typing-btn');
+        const typingMsg = document.getElementById('typing-message');
+
+        function loadNewVerse() {
+            const randomIndex = Math.floor(Math.random() * bibleVerses.length);
+            currentVerse = bibleVerses[randomIndex];
+            
+            verseCitation.textContent = "Verse: " + currentVerse.ref;
+            
+            targetSnippetBox.innerHTML = '';
+            currentVerse.text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'char-untyped';
+                targetSnippetBox.appendChild(span);
+            });
+        }
+
+        function startTypingGame() {
+            clearInterval(typingTimer);
+            timeLeft = 35;
+            charIndex = 0;
+            errors = 0;
+            isPlaying = true;
+            typingMsg.textContent = "";
+            timerDisplay.textContent = timeLeft;
+            wpmDisplay.textContent = 0;
+            accDisplay.textContent = 100;
+
+            loadNewVerse();
+
+            typingInput.disabled = false;
+            typingInput.value = '';
+            typingInput.focus();
+            typingBtn.textContent = "Restart";
+
+            typingTimer = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+
+                const wordsTyped = (charIndex / 5);
+                const minutesElapsed = (35 - timeLeft) / 60;
+                const currentWPM = minutesElapsed > 0 ? Math.round(wordsTyped / minutesElapsed) : 0;
+                wpmDisplay.textContent = currentWPM;
+
+                if (timeLeft <= 0) {
+                    endTypingGame();
+                }
+            }, 1000);
+        }
+
+        if (typingInput) {
+            typingInput.addEventListener('input', () => {
+                if (!isPlaying) return;
+
+                const typedValue = typingInput.value;
+                const snippetSpans = targetSnippetBox.querySelectorAll('span');
+
+                charIndex = typedValue.length;
+                errors = 0;
+
+                snippetSpans.forEach((span, index) => {
+                    const typedChar = typedValue[index];
+                    if (typedChar == null) {
+                        span.className = 'char-untyped';
+                    } else if (typedChar === span.textContent) {
+                        span.className = 'char-correct';
+                    } else {
+                        span.className = 'char-incorrect';
+                        errors++;
+                    }
+                });
+
+                const accuracy = charIndex > 0 ? Math.max(0, Math.round(((charIndex - errors) / charIndex) * 100)) : 100;
+                accDisplay.textContent = accuracy;
+
+                if (charIndex >= currentVerse.text.length) {
+                    loadNewVerse();
+                    typingInput.value = '';
+                    charIndex = 0;
+                }
+            });
+        }
+
+        function endTypingGame() {
+            isPlaying = false;
+            clearInterval(typingTimer);
+            typingInput.disabled = true;
+            typingBtn.textContent = "Start Game";
+            typingMsg.textContent = "Time's up!";
+        }
+
+        // --- 2. SNAKE & GREEN APPLE GAME ---
+        const canvas = document.getElementById("snakeCanvas");
+        const ctx = canvas.getContext("2d");
+        const gridSize = 14;
+        const tileCount = canvas.width / gridSize;
+
+        let snake = [];
+        let apple = { x: 5, y: 5 };
+        let dx = 1;
+        let dy = 0;
+        let score = 0;
+        let snakeInterval = null;
+        let gameRunning = false;
+
+        function launchSnakeGame() {
+            document.getElementById('snake-intro').style.display = 'none';
+            startSnakeGame();
+        }
+
+        function resetSnakeGame() {
+            document.getElementById('snake-intro').style.display = 'flex';
+            clearInterval(snakeInterval);
+            gameRunning = false;
+            clearCanvas();
+        }
+
+        function startSnakeGame() {
+            clearInterval(snakeInterval);
+            snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 }
+            ];
+            dx = 1;
+            dy = 0;
+            score = 0;
+            document.getElementById('snake-score').textContent = score;
+            spawnApple();
+            gameRunning = true;
+            snakeInterval = setInterval(gameLoop, 110);
+        }
+
+        function gameLoop() {
+            if (!gameRunning) return;
+            moveSnake();
+            if (checkGameOver()) {
+                gameRunning = false;
+                clearInterval(snakeInterval);
+                alert("Game Over! Final Score: " + score);
+                document.getElementById('snake-intro').style.display = 'flex';
+                return;
+            }
+            clearCanvas();
+            drawApple();
+            drawSnake();
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = "#111";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawSnake() {
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? "#4CAF50" : "#2E7D32";
+                ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+        }
+
+        function moveSnake() {
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            snake.unshift(head);
+
+            if (head.x === apple.x && head.y === apple.y) {
+                score += 10;
+                document.getElementById('snake-score').textContent = score;
+                spawnApple();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function spawnApple() {
+            apple.x = Math.floor(Math.random() * tileCount);
+            apple.y = Math.floor(Math.random() * tileCount);
+            snake.forEach(part => {
+                if (part.x === apple.x && part.y === apple.y) spawnApple();
+            });
+        }
+
+        function drawApple() {
+            ctx.fillStyle = "#00E676";
+            ctx.beginPath();
+            ctx.arc((apple.x * gridSize) + gridSize/2, (apple.y * gridSize) + gridSize/2, gridSize/2 - 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function checkGameOver() {
+            const head = snake[0];
+            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) return true;
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) return true;
+            }
+            return false;
+        }
+
+        window.addEventListener('keydown', e => {
+            if (!gameRunning) return;
+            if ((e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') && dx === 0) { dx = -1; dy = 0; e.preventDefault(); }
+            if ((e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') && dy === 0) { dx = 0; dy = -1; e.preventDefault(); }
+            if ((e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') && dx === 0) { dx = 1; dy = 0; e.preventDefault(); }
+            if ((e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') && dy === 0) { dx = 0; dy = 1; e.preventDefault(); }
+        });
+
+
+        // --- 3. TIC-TAC-TOE WITH MULTIPLE DIFFICULTIES ---
+        let tttBoard = ['', '', '', '', '', '', '', '', ''];
+        let tttActive = true;
+        let currentDifficulty = 'hard';
+        const human = 'X';
+        const ai = 'O';
+
+        function setDifficulty(level) {
+            currentDifficulty = level;
+            document.getElementById('diff-easy').className = level === 'easy' ? 'diff-btn active-diff' : 'diff-btn';
+            document.getElementById('diff-medium').className = level === 'medium' ? 'diff-btn active-diff' : 'diff-btn';
+            document.getElementById('diff-hard').className = level === 'hard' ? 'diff-btn active-diff' : 'diff-btn';
+            initTTTGame();
+        }
+
+        function initTTTGame() {
+            const grid = document.getElementById('ttt-grid');
+            grid.innerHTML = '';
+            tttBoard = ['', '', '', '', '', '', '', '', ''];
+            tttActive = true;
+            document.getElementById('ttt-status').textContent = "Your turn (X)";
+
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('ttt-cell');
+                cell.dataset.index = i;
+                cell.addEventListener('click', handleTTTClick);
+                grid.appendChild(cell);
+            }
+        }
+
+        function handleTTTClick() {
+            const index = this.dataset.index;
+            if (tttBoard[index] !== '' || !tttActive) return;
+
+            makeTTTMove(index, human);
+
+            if (checkWin(tttBoard, human)) {
+                document.getElementById('ttt-status').textContent = "You Win! 🎉";
+                tttActive = false;
+                return;
+            }
+
+            if (isBoardFull(tttBoard)) {
+                document.getElementById('ttt-status').textContent = "It's a Draw!";
+                tttActive = false;
+                return;
+            }
+
+            tttActive = false;
+            document.getElementById('ttt-status').textContent = "AI thinking...";
+            setTimeout(makeAIMoveByDifficulty, 400);
+        }
+
+        function makeTTTMove(index, player) {
+            tttBoard[index] = player;
+            const cell = document.querySelector(`.ttt-cell[data-index="${index}"]`);
+            cell.textContent = player;
+            if (player === ai) cell.style.color = '#ff6b6b';
+        }
+
+        function makeAIMoveByDifficulty() {
+            let move = null;
+
+            if (currentDifficulty === 'easy') {
+                move = getRandomMove();
+            } else if (currentDifficulty === 'medium') {
+                move = Math.random() < 0.5 ? getBestMove() : getRandomMove();
+            } else {
+                move = getBestMove();
+            }
+
+            if (move !== null) {
+                makeTTTMove(move, ai);
+
+                if (checkWin(tttBoard, ai)) {
+                    document.getElementById('ttt-status').textContent = "AI Wins! 🤖";
+                    tttActive = false;
+                    return;
+                }
+
+                if (isBoardFull(tttBoard)) {
+                    document.getElementById('ttt-status').textContent = "It's a Draw!";
+                    tttActive = false;
+                    return;
+                }
+
+                document.getElementById('ttt-status').textContent = "Your turn (X)";
+                tttActive = true;
+            }
+        }
+
+        function getRandomMove() {
+            const emptyIndices = tttBoard.map((val, idx) => val === '' ? idx : null).filter(val => val !== null);
+            if (emptyIndices.length === 0) return null;
+            return emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+        }
+
+        function getBestMove() {
+            let bestScore = -Infinity;
+            let bestMove = null;
+
+            for (let i = 0; i < tttBoard.length; i++) {
+                if (tttBoard[i] === '') {
+                    tttBoard[i] = ai;
+                    let score = minimax(tttBoard, 0, false);
+                    tttBoard[i] = '';
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestMove = i;
+                    }
+                }
+            }
+            return bestMove;
+        }
+
+        function minimax(board, depth, isMaximizing) {
+            if (checkWin(board, ai)) return 10 - depth;
+            if (checkWin(board, human)) return depth - 10;
+            if (isBoardFull(board)) return 0;
+
+            if (isMaximizing) {
+                let maxScore = -Infinity;
+                for (let i = 0; i < board.length; i++) {
+                    if (board[i] === '') {
+                        board[i] = ai;
+                        let score = minimax(board, depth + 1, false);
+                        board[i] = '';
+                        maxScore = Math.max(score, maxScore);
+                    }
+                }
+                return maxScore;
+            } else {
+                let minScore = Infinity;
+                for (let i = 0; i < board.length; i++) {
+                    if (board[i] === '') {
+                        board[i] = human;
+                        let score = minimax(board, depth + 1, true);
+                        board[i] = '';
+                        minScore = Math.min(score, minScore);
+                    }
+                }
+                return minScore;
+            }
+        }
+
+        function checkWin(board, player) {
+            const wins = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+            return wins.some(combination => combination.every(idx => board[idx] === player));
+        }
+
+        function isBoardFull(board) {
+            return board.every(cell => cell !== '');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNewVerse();
+        });
+    </script>
+</body>
+</html>
