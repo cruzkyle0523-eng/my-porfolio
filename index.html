@@ -99,7 +99,6 @@
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid #444;
-            /* Grayscale filter removed so photo stays in full color */
         }
         .resume-section-title {
             font-size: 12px;
@@ -136,7 +135,7 @@
 
     <!-- Background Portrait -->
     <div class="bg-container">
-        <img src="C:\Users\Client\Downloads\CUsersClientDownloadsA0A643F5-11DB-47EA-8D5B-611CB8D87345.png.png" alt="Portrait" class="bg-image">
+        <img src="background_picture.png.png" alt="Portrait" class="bg-image">
         <div class="overlay"></div>
     </div>
 
@@ -230,14 +229,14 @@
                     </div>
 
                     <div style="position: relative; width: 280px; height: 280px; margin: 0 auto;">
-                        <canvas id="snakeCanvas" width="280" height="280" style="background: #111; border: 1px solid #333; border-radius: 6px; display: block;"></canvas>
+                        <canvas id="snakeCanvas" width="280" height="280" style="background: #111; border: 1px solid #333; border-radius: 6px; display: block; touch-action: none;"></canvas>
                         
                         <div id="snake-intro" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 15, 15, 0.92); border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box; text-align: center;">
                             <h3 style="color: #fff; font-size: 15px; margin-bottom: 8px;">Snake & Apple</h3>
                             <p style="font-size: 11px; color: #bbb; line-height: 1.4; margin-bottom: 14px;">
                                 Guide the snake to eat the bright green apples and grow longer!<br><br>
                                 <strong>Controls:</strong><br>
-                                Use <strong>W, A, S, D</strong> or <strong>Arrow Keys</strong> to move.
+                                📱 <strong>Swipe</strong> on mobile or use <strong>WASD / Arrows</strong> on desktop.
                             </p>
                             <button onclick="launchSnakeGame()" style="padding: 6px 16px; background: #fff; color: #000; border: none; border-radius: 4px; font-weight: 500; cursor: pointer; font-size: 12px;">Start Game</button>
                         </div>
@@ -286,7 +285,7 @@
                             0956-7107-397<br>
                             cruzkyle.0523@gmail.com</p>
                         </div>
-                        <img src="C:\Users\Client\Downloads\IT Professional Resume.png" alt="Kyle Cruz Portrait" class="resume-photo">
+                        <img src="IT_Professional_Resume.png" alt="Kyle Cruz Portrait" class="resume-photo">
                     </div>
 
                     <div class="resume-section-title">Career Objective</div>
@@ -499,7 +498,7 @@
             typingMsg.textContent = "Time's up!";
         }
 
-        // --- 2. SNAKE & GREEN APPLE GAME ---
+        // --- 2. SNAKE & GREEN APPLE GAME WITH TOUCH SWIPE CONTROLS ---
         const canvas = document.getElementById("snakeCanvas");
         const ctx = canvas.getContext("2d");
         const gridSize = 14;
@@ -512,6 +511,41 @@
         let score = 0;
         let snakeInterval = null;
         let gameRunning = false;
+
+        // Touch swipe tracking variables
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        canvas.addEventListener('touchstart', e => {
+            if (!gameRunning) return;
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            e.preventDefault();
+        }, { passive: false });
+
+        canvas.addEventListener('touchmove', e => {
+            e.preventDefault(); // Prevent scrolling while playing
+        }, { passive: false });
+
+        canvas.addEventListener('touchend', e => {
+            if (!gameRunning) return;
+            const touch = e.changedTouches[0];
+            const diffX = touch.clientX - touchStartX;
+            const diffY = touch.clientY - touchStartY;
+
+            // Minimum swipe distance threshold to trigger movement
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // Horizontal swipe
+                if (diffX > 20 && dx === 0) { dx = 1; dy = 0; }
+                else if (diffX < -20 && dx === 0) { dx = -1; dy = 0; }
+            } else {
+                // Vertical swipe
+                if (diffY > 20 && dy === 0) { dx = 0; dy = 1; }
+                else if (diffY < -20 && dy === 0) { dx = 0; dy = -1; }
+            }
+            e.preventDefault();
+        }, { passive: false });
 
         function launchSnakeGame() {
             document.getElementById('snake-intro').style.display = 'none';
