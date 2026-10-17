@@ -1,7 +1,3 @@
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE';
-const EMAILJS_SERVICE_ID = 'service_xxxxxxxx';
-const EMAILJS_TEMPLATE_ID = 'template_xxxxxxxx';
-
 document.addEventListener('DOMContentLoaded', () => {
     // Menu tab switching logic
     const menuItems = document.querySelectorAll('.menu-item');
@@ -71,12 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (window.emailjs) {
-        emailjs.init({
-            publicKey: EMAILJS_PUBLIC_KEY
-        });
-    }
-
     if (postcardForm) {
         postcardForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -90,20 +80,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                if (!window.emailjs) {
-                    throw new Error('EmailJS is not loaded.');
-                }
-
-                await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, postcardForm, {
-                    publicKey: EMAILJS_PUBLIC_KEY
+                const response = await fetch(postcardForm.action, {
+                    method: 'POST',
+                    body: new FormData(postcardForm),
+                    headers: {
+                        Accept: 'application/json'
+                    }
                 });
+
+                if (!response.ok) {
+                    throw new Error(`Formspree returned ${response.status}.`);
+                }
 
                 postcardForm.reset();
                 closeContactModal();
                 alert('Thank you! Your postcard has been sent.');
             } catch (error) {
                 console.error('Postcard send error:', error);
-                alert('Failed to send your postcard. Please check your EmailJS configuration.');
+                alert('Failed to send your postcard. Please try again later.');
             } finally {
                 if (submitBtn) {
                     submitBtn.textContent = originalBtnText;
