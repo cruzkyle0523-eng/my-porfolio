@@ -1,3 +1,7 @@
+const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE';
+const EMAILJS_SERVICE_ID = 'service_xxxxxxxx';
+const EMAILJS_TEMPLATE_ID = 'template_xxxxxxxx';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Menu tab switching logic
     const menuItems = document.querySelectorAll('.menu-item');
@@ -69,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (window.emailjs) {
         emailjs.init({
-            publicKey: 'YOUR_PUBLIC_KEY_HERE'
+            publicKey: EMAILJS_PUBLIC_KEY
         });
     }
 
@@ -85,33 +89,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.disabled = true;
             }
 
-            const formData = new FormData(postcardForm);
-            const name = String(formData.get('name') || '').trim();
-            const email = String(formData.get('email') || '').trim();
-            const message = String(formData.get('message') || '').trim();
-
             try {
                 if (!window.emailjs) {
                     throw new Error('EmailJS is not loaded.');
                 }
 
-                await emailjs.send(
-                    'service_xxxxxxxx',
-                    'template_xxxxxxxx',
-                    {
-                        from_name: name,
-                        from_email: email,
-                        message: message,
-                        recipient_email: 'cruzkyle.0523@gmail.com'
-                    }
-                );
+                await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, postcardForm, {
+                    publicKey: EMAILJS_PUBLIC_KEY
+                });
 
                 postcardForm.reset();
                 closeContactModal();
                 alert('Thank you! Your postcard has been sent.');
             } catch (error) {
                 console.error('Postcard send error:', error);
-                alert('Failed to send your postcard. Please check your email service configuration.');
+                alert('Failed to send your postcard. Please check your EmailJS configuration.');
             } finally {
                 if (submitBtn) {
                     submitBtn.textContent = originalBtnText;
