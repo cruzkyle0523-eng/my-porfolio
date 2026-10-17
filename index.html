@@ -481,7 +481,7 @@
                 
                 <div class="postcard-heading">Send me a postcard. I read every one.</div>
 
-                <form action="https://formspree.io/f/mvkzlpok" method="POST">
+                <form id="postcardForm">
                     <div class="postcard-field">
                         <input type="text" name="name" placeholder="Your name" required autocomplete="off">
                     </div>
@@ -504,6 +504,7 @@
     </div>
 
     <!-- JavaScript File Link -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
     <script>
         // --- ARCADE TAB SWITCHER ---
